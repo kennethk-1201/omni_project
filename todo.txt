@@ -1,0 +1,9 @@
+- set up backend
+    - sync with postgresql  "docker-compose run backend python3 ./backend/manage.py migrate"
+    - create rest API route for shortener:
+        - send long url -> store short url and return as response (POST)
+        - send short url -> return long url response (GET)
+- set up frontend
+    - create homepage for entry (form to send long url -> output short url that can be reused)
+    - create redirect page (parse short url -> send to backend -> response long url -> redirect)
+- containerise applications

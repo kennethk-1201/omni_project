@@ -14,8 +14,14 @@ function App() {
 
   const sendRequest = async e => {
     e.preventDefault();
-    const response = await Axios.post(`${process.env.REACT_APP_BACKEND}/add/`, longUrl)
-    console.log(response.data);
+    
+    try {
+      const response = await Axios.post(`${process.env.REACT_APP_BACKEND}/urlshortener/add/`, longUrl);
+      setShortUrl(response.data.short_url);
+
+    } catch (e) {
+      console.log(e.message);
+    }
   }
 
   return (

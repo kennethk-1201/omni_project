@@ -1,5 +1,3 @@
-from django.shortcuts import render
-from django.http import JsonResponse
 from django.core.exceptions import ValidationError
 
 from rest_framework import status
@@ -22,16 +20,17 @@ def getUrl(request, url):
 
 @api_view(['POST'])
 def addUrl(request):
+    data = request.body.decode("utf-8") 
     # check if shortener instance exists
-    shortener = Shortener.objects.all().filter(short_url=request.data)
+    print(data)
+    shortener = Shortener.objects.filter(short_url=data)
     print(shortener)
-
     if shortener.exists():
-        serializer = ShortenerSerializer(shortener[0], many=False)
+        serializer = ShortenerSerializer(shortener.first(), many=False)
         return Response(serializer.data)
 
     # create shortener instance
-    shortener = Shortener(long_url=request.data, short_url=str(abs(hash(request.data)))[:15])
+    shortener = Shortener(long_url=data, short_url=str(abs(hash(data)))[:15])
 
     try:
         # save to db
@@ -39,7 +38,8 @@ def addUrl(request):
         shortener.save()
     except ValidationError as e:
         # if invalid, return 400 status code
-        return Response(e, status=status.HTTP_400_BAD_REQUEST)
+        print(e)
+        return Response(data + " is invalid.", status=status.HTTP_400_BAD_REQUEST)
 
     serializer = ShortenerSerializer(shortener, many=False)
     return Response(serializer.data)

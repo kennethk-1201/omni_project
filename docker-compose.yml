@@ -11,11 +11,10 @@ services:
       - POSTGRES_NAME=${POSTGRES_NAME}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_HOST=${POSTGRES_HOST}
-      - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_PASSWORD=${POSTGRES_PASS}
   backend:
     build: ./backend
-    command: ["/wait-for-it.sh", "db:5432", "--", "python3", "./backend/manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["/wait-for-it.sh", "--timeout=5", "db:5432", "--", "python3", "./backend/manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - .:/code
     ports:

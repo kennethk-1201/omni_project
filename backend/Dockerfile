@@ -5,8 +5,8 @@ ENV PYTHONUNBUFFERED 1
 # RUN mkdir /db
 #RUN chown app:app -R /db
 
-COPY wait-for-it.sh /wait-for-it.sh
-RUN chmod +x /wait-for-it.sh
+COPY wait-for-postgres.sh /wait-for-postgres.sh
+RUN chmod +x /wait-for-postgres.sh
 
 RUN mkdir /code
 WORKDIR /code

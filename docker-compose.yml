@@ -11,10 +11,11 @@ services:
       - POSTGRES_NAME=${POSTGRES_NAME}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_PASSWORD=${POSTGRES_PASS}
   backend:
     build: ./backend
-    command: ["/wait-for-it.sh", "--timeout=5", "db:5432", "--", "python3", "./backend/manage.py", "runserver", "0.0.0.0:8000"]
+    command: ["/wait-for-postgres.sh", "db", "python3", "./backend/manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - .:/code
     ports:
@@ -25,6 +26,6 @@ services:
       - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_PASS=${POSTGRES_PASS}
-    restart: on-failure
+    restart: always
     depends_on:
       - db

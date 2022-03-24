@@ -27,8 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
+    'localhost'
 ]
 
+CORS_ORIGIN_WHITELIST = (
+       'http://localhost:3000',
+       'http://0.0.0.0:3000',
+)
 
 # Application definition
 
@@ -41,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # custom apps
     'urlshortener',
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

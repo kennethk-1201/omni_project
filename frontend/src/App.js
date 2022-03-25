@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import Axios from "axios";
-import axios from "axios";
 
 function App() {
 
@@ -26,12 +25,17 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Enter URL:</h1>
       <form className="input-form" onSubmit={sendRequest}>
+        <h1 className="app-title">Shorten a URL</h1>
         <input type="text" className="url-input" value={longUrl} onChange={handleChange}/>
-        <button type="submit">Submit</button>
+        <button type="submit" className="submit-url">Submit</button>
+        {shortUrl && (
+          <>
+            <p className="new-link-title">Your new URL:</p>
+            <a className="new-link" href={`${process.env.REACT_APP_HOST}/${shortUrl}`}>{`${process.env.REACT_APP_HOST}/${shortUrl}`}</a>
+          </>
+        )}
       </form>
-      <h1>{shortUrl}</h1>
     </div>
   );
 }

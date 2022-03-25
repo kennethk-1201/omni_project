@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.http import HttpResponseRedirect
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -11,9 +12,8 @@ from .models import Shortener
 def getUrl(request, url):
     try:
         # return the shortened url
-        shortener = Shortener.objects.get(short_url=url)            
-        serializer = ShortenerSerializer(shortener, many=False)
-        return Response(serializer.data)
+        shortener = Shortener.objects.filter(short_url=url).first()
+        return Response(shortener.long_url)
     except:
         # if URL not valid, return 404
         return Response("No such URL exists", status=status.HTTP_404_NOT_FOUND)
@@ -22,15 +22,14 @@ def getUrl(request, url):
 def addUrl(request):
     data = request.body.decode("utf-8") 
     # check if shortener instance exists
-    print(data)
-    shortener = Shortener.objects.filter(short_url=data)
-    print(shortener)
-    if shortener.exists():
-        serializer = ShortenerSerializer(shortener.first(), many=False)
+    shorteners = Shortener.objects.filter(long_url=data)
+    if shorteners.exists():
+        # if exist, return data
+        serializer = ShortenerSerializer(shorteners.first(), many=False)
         return Response(serializer.data)
 
     # create shortener instance
-    shortener = Shortener(long_url=data, short_url=str(abs(hash(data)))[:15])
+    shortener = Shortener(long_url=data, short_url=str(abs(hash(data)))[:5])
 
     try:
         # save to db

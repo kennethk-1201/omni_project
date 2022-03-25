@@ -1,6 +1,6 @@
 # URL Shortener
 
-The URL Shortener is a full-stack containerised application that converts a provided URL into a shorter URL.
+The URL Shortener is a simple full-stack containerised application that converts a provided URL into a shorter URL. Any data that is saved (ie remembering of shortened URLs and how to redirect the user to the original URL) persists across service restarts. The entire stack comprises of React, Django and PostgreSQL. 
 
 ## Usage
 
@@ -40,5 +40,6 @@ CONTAINER ID   IMAGE                   COMMAND                  CREATED         
 6. Run `python3 ./backend/manage.py migrate` to migrate the models into the database.
 
 7. Your web application should now be running properly at `http://localhost:8000`.
+
 ![Webpage image](/assets/webpage.png)
 

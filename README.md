@@ -6,7 +6,7 @@ The URL Shortener is a simple full-stack containerised application that converts
 
 1. To use this application, clone the repository into a directory. 
 
-2. Set up the environmental variables by creating a `.env` file in the root, `/frontend` and `/backend` directories respectively. For example, for the main and backend files, it should look something like this:
+2. Set up the environmental variables by creating a `.env` file in the root, `/frontend` and `/backend` directories respectively. For example, for the root and backend `.env` files, it should look something like this:
 
 ```
 POSTGRES_NAME=postgres

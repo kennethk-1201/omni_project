@@ -39,7 +39,7 @@ CONTAINER ID   IMAGE                   COMMAND                  CREATED         
 
 6. Run `python3 ./backend/manage.py migrate` to migrate the models into the database.
 
-7. Your web application should now be running properly at `http://localhost:8000`.
+7. Your web application should now be running properly at `http://localhost:3000`.
 
 ![Webpage image](/assets/webpage.png)
 

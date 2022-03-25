@@ -6,7 +6,7 @@ set -e
 host="$1"
 shift
   
-sleep 5
+sleep 15
   
 >&2 echo "Postgres is up - executing command"
 exec "$@"
